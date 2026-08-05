@@ -1,0 +1,23 @@
+.dashboard-container {
+    padding: 24px;
+}
+
+.dashboard-container h2 {
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 20px;
+}
+
+.card h1 {
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: bold;
+}

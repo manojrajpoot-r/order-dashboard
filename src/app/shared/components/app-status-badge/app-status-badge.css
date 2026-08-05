@@ -1,0 +1,72 @@
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 4px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-transform: capitalize;
+
+}
+
+
+/* Pending */
+
+.pending {
+
+    background: #fff3cd;
+
+    color: #856404;
+
+}
+
+
+/* Completed */
+
+.completed {
+
+    background: #d1e7dd;
+
+    color: #0f5132;
+
+}
+
+
+/* Cancelled */
+
+.cancelled {
+
+    background: #f8d7da;
+
+    color: #842029;
+
+}
+
+
+/* Active */
+
+.active {
+
+    background: #d1e7dd;
+
+    color: #0f5132;
+
+}
+
+
+/* Inactive */
+
+.inactive {
+
+    background: #e2e3e5;
+
+    color: #41464b;
+
+}

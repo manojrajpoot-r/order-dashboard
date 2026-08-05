@@ -1,0 +1,46 @@
+<div class="login-container">
+
+    <mat-card>
+
+        <mat-card-header>
+
+            <mat-card-title>
+
+                Saga Dashboard Login
+
+            </mat-card-title>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <form
+                [formGroup]="loginForm"
+                (ngSubmit)="login()">
+
+                <app-input
+                    label="Email"
+                    type="email"
+                    placeholder="Enter Email"
+                    [control]="loginForm.controls.email">
+                </app-input>
+
+                <app-input
+                    label="Password"
+                    type="password"
+                    placeholder="Enter Password"
+                    [control]="loginForm.controls.password">
+                </app-input>
+
+                <app-button
+                  text="Login"
+                  [loading]="loading">
+              </app-button>
+
+            </form>
+
+        </mat-card-content>
+
+    </mat-card>
+
+</div>

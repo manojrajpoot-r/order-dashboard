@@ -1,0 +1,32 @@
+<mat-form-field
+    appearance="outline"
+    class="w-100">
+
+    <mat-label>
+
+        {{ label }}
+
+    </mat-label>
+
+    <mat-select
+        [placeholder]="placeholder"
+        [formControl]="control">
+
+        @for (item of options; track $index) {
+
+            <mat-option
+                [value]="item[valueKey]">
+
+                {{ item[labelKey] }}
+
+            </mat-option>
+
+        }
+
+    </mat-select>
+
+    <app-form-error
+        [control]="control">
+    </app-form-error>
+
+</mat-form-field>

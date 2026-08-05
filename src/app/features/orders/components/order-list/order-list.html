@@ -1,0 +1,32 @@
+<app-loader></app-loader>
+
+
+<div class="p-6">
+
+<h2 class="text-xl font-bold mb-4">
+ Orders
+</h2>
+
+
+<app-search-box
+  [placeholder]="'Search orders...'"
+  (searchChange)="onSearch($event)">
+</app-search-box>
+
+<app-table
+  [data]="pagedOrders"
+  [columns]="columns"
+  [actions]="actions"
+  [loading]="loading"
+  (actionClick)="handleAction($event)">
+</app-table>
+
+<app-pagination
+  [page]="page"
+  [pageSize]="pageSize"
+  [totalRecords]="totalRecords"
+  (pageChange)="onPageChange($event)">
+</app-pagination>
+
+
+</div>

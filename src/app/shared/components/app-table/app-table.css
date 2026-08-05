@@ -1,0 +1,35 @@
+.table-container {
+
+    width: 100%;
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+}
+
+
+th {
+
+    font-weight: 600;
+    white-space: nowrap;
+
+}
+
+
+td {
+
+    white-space: nowrap;
+
+}
+
+
+.mat-mdc-row:hover {
+
+    background: #f8f9fa;
+
+}

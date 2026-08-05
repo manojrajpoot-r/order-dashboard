@@ -1,0 +1,11 @@
+<span
+    class="status-badge"
+    [class.pending]="status.toLowerCase() === 'pending'"
+    [class.completed]="status.toLowerCase() === 'completed'"
+    [class.cancelled]="status.toLowerCase() === 'cancelled'"
+    [class.active]="status.toLowerCase() === 'active'"
+    [class.inactive]="status.toLowerCase() === 'inactive'">
+
+    {{ status }}
+
+</span>
