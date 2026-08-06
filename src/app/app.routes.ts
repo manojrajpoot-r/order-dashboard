@@ -4,6 +4,8 @@ import { DashboardComponent } from './features/dashboard/dashboard';
 import { OrderListComponent } from './features/orders/components/order-list/order-list';
 import { authGuard } from './core/guard/auth-guard';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
+import { OrderEditComponent } from './features/orders/components/order-edit/order-edit';
+import { OrderAddComponent } from './features/orders/components/order-add/order-add';
 export const routes: Routes = [
 
   // Default Route
@@ -40,6 +42,14 @@ export const routes: Routes = [
       {
         path: 'orders',
         component: OrderListComponent
+      },
+      {
+        path: 'orders/create',
+        component: OrderAddComponent
+      },
+      {
+        path: 'orders/:id/edit',
+        component: OrderEditComponent
       }
 
     ]

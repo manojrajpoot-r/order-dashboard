@@ -1,21 +1,17 @@
 <aside class="sidebar">
 
-    <nav>
+  <nav>
 
-        @for(menu of menus; track menu.route){
+    @for(menu of menus; track menu.route){
 
-           <a
-              [routerLink]="['/admin', menu.route]"
-              routerLinkActive="active"
-              class="menu-item">
+    <a [routerLink]="menu.route" routerLinkActive="active" class="menu-item">
 
-              <mat-icon>{{ menu.icon }}</mat-icon>
+      <mat-icon>{{ menu.icon }}</mat-icon>
+      <span>{{ menu.label }}</span>
 
-              <span>{{ menu.label }}</span>
+    </a>
+    }
 
-            </a>
-        }
-
-    </nav>
+  </nav>
 
 </aside>

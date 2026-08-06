@@ -7,49 +7,26 @@ import { SnackbarService } from '../../shared/services/snackbar/snackbar.service
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
-
   const loader = inject(LoaderService);
-
   const snackbar = inject(SnackbarService);
 
+  const token = localStorage.getItem('token');
 
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 
   loader.show();
 
-
-  return next(req)
-
-    .pipe(
-
-      catchError((error) => {
-
-
-        let message = 'Something went wrong';
-
-
-        if (error.error?.message) {
-
-          message = error.error.message;
-
-        }
-
-
-        snackbar.error(message);
-
-
-        return throwError(() => error);
-
-
-      }),
-
-
-      finalize(() => {
-
-        loader.hide();
-
-      })
-
-    );
-
-
+  return next(req).pipe(
+    catchError((error) => {
+      snackbar.error(error.error?.message || 'Something went wrong');
+      return throwError(() => error);
+    }),
+    finalize(() => loader.hide())
+  );
 };

@@ -1,7 +1,7 @@
 import { Service } from '@angular/core';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Order } from '../models/order.model';
 
@@ -17,12 +17,8 @@ export class OrderService {
 
 
 
-  getOrders(): Observable<Order[]> {
-
-    return this.http.get<Order[]>(
-      this.apiUrl
-    );
-
+  async getOrders() {
+    return await firstValueFrom(this.http.get<any>(`${environment.apiUrl}/orders`))
   }
 
 

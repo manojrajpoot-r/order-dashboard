@@ -1,27 +1,29 @@
 <header class="header">
 
-    <div class="header-left">
+  <div class="header-left">
+    <h2>{{ appName }}</h2>
+  </div>
 
-        <h2>{{ appName }}</h2>
+  <div class="header-right">
 
-    </div>
+    <button mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+    </button>
 
-    <div class="header-right">
+    <button mat-button>
+      <mat-icon>account_circle</mat-icon>
+      {{ userName }}
+    </button>
 
-        <button mat-icon-button>
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="logout()">
 
-            <mat-icon>notifications</mat-icon>
+      <mat-icon>logout</mat-icon>
 
-        </button>
+    </button>
 
-        <button mat-button>
-
-            <mat-icon>account_circle</mat-icon>
-
-            {{ userName }}
-
-        </button>
-
-    </div>
+  </div>
 
 </header>

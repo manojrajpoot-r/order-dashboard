@@ -4,6 +4,7 @@ import { TitleCasePipe } from '@angular/common';
 import { MATERIAL_MODULES } from '../material/material';
 import { AppLoaderComponent } from "../app-loader/app-loader";
 import { AppStatusBadgeComponent } from '../app-status-badge/app-status-badge';
+import { OnChanges, SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-table',
   imports: [
@@ -20,6 +21,8 @@ export class AppTableComponent {
 
 
   @Input() data: any[] = [];
+
+
 
   @Input() columns: any[] = [];
 
