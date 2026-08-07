@@ -63,5 +63,13 @@ export class AppTableComponent {
 
   }
 
+  @Input() statusOptions: {
+    label: string;
+    value: string;
+  }[] = [];
 
+  @Output() statusChange = new EventEmitter<{
+    id: number;
+    status: string;
+  }>();
 }

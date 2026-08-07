@@ -1,6 +1,6 @@
 export interface TableAction {
 
-  name: 'view' | 'edit' | 'delete';
+  name: 'view' | 'edit' | 'delete' | 'status';
 
   label: string;
 

@@ -4,7 +4,7 @@ export interface TableColumn {
 
   title: string;
 
-  type?: 'text' | 'status' | 'date' | 'action';
+  type?: 'text' | 'status' | 'date' | 'status-select' | 'action';
 
   width?: string;
 

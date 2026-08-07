@@ -25,133 +25,114 @@
     @else {
 
 
-        <table mat-table [dataSource]="data">
+       <table mat-table [dataSource]="data">
 
+          <!-- Dynamic Columns -->
+          @for (column of columns; track column.key) {
 
-            <!-- Dynamic Columns -->
+              <ng-container [matColumnDef]="column.key">
 
-            @for (column of columns; track column.key) {
+                  <th mat-header-cell *matHeaderCellDef>
+                      {{ column.label }}
+                  </th>
 
+                  <td mat-cell *matCellDef="let row">
 
-                <ng-container [matColumnDef]="column.key">
+                      @if(column.type === 'status') {
 
-                <th mat-header-cell *matHeaderCellDef>
-                    {{ column.label }}
-                </th>
+                          <app-status-badge
+                              [status]="row[column.key]">
+                          </app-status-badge>
 
+                      }
 
-                    <td mat-cell *matCellDef="let row">
+                      @else if(column.type === 'status-select') {
 
+                          <mat-form-field appearance="outline">
 
+                              <mat-select
+                                  [value]="row.status"
+                                  (selectionChange)="statusChange.emit({
+                                      id: row.id,
+                                      status: $event.value
+                                  })">
 
+                                  @for(option of statusOptions; track option.value) {
 
-                        @if(column.type === 'status') {
+                                      <mat-option [value]="option.value">
+                                          {{ option.label }}
+                                      </mat-option>
 
+                                  }
 
-                            <app-status-badge
-                                [status]="row[column.key]">
-                            </app-status-badge>
+                              </mat-select>
 
+                          </mat-form-field>
 
-                        }
+                      }
 
-                        @else {
+                      @else {
 
+                          {{ row[column.key] }}
 
+                      }
 
-                   {{ row[column.key] }}
+                  </td>
 
+              </ng-container>
 
-                        }
+          }
 
+           <!-- Actions Column -->
 
-                    </td>
+    @if(actions.length) {
 
+        <ng-container matColumnDef="actions">
 
-                </ng-container>
+            <th mat-header-cell *matHeaderCellDef>
 
+                Actions
 
-            }
+            </th>
 
+            <td mat-cell *matCellDef="let row">
 
+                @for(action of actions; track action.name) {
 
-            <!-- Actions Column -->
+                    <button
+                        mat-icon-button
+                        [matTooltip]="action.name | titlecase"
+                        (click)="handleAction(action.name, row)">
 
-            @if(actions.length) {
+                        <mat-icon>
+                            {{ action.icon }}
+                        </mat-icon>
 
+                    </button>
 
-                <ng-container matColumnDef="actions">
+                }
 
+            </td>
 
-                    <th mat-header-cell *matHeaderCellDef>
+        </ng-container>
 
-                        Actions
+    }
 
-                    </th>
+        <!-- Header -->
 
+        <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns">
+        </tr>
 
-                    <td mat-cell *matCellDef="let row">
+        <!-- Rows -->
 
+        <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;">
+        </tr>
 
-                        @for(action of actions; track action.name) {
-
-
-                            <button
-
-                                mat-icon-button
-
-                                [matTooltip]="action.name | titlecase"
-
-                                (click)="handleAction(action.name,row)">
-
-
-                                <mat-icon>
-
-                                    {{ action.icon }}
-
-                                </mat-icon>
-
-
-                            </button>
-
-
-                        }
-
-
-                    </td>
-
-
-                </ng-container>
-
-
-            }
-
-
-
-            <!-- Header -->
-
-            <tr
-
-                mat-header-row
-
-                *matHeaderRowDef="displayedColumns">
-
-            </tr>
-
-
-
-            <!-- Rows -->
-
-            <tr
-
-                mat-row
-
-                *matRowDef="let row; columns: displayedColumns;">
-
-            </tr>
-
-
-        </table>
+    </table>
 
 
     }

@@ -4,8 +4,7 @@ import { DashboardComponent } from './features/dashboard/dashboard';
 import { OrderListComponent } from './features/orders/components/order-list/order-list';
 import { authGuard } from './core/guard/auth-guard';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
-import { OrderEditComponent } from './features/orders/components/order-edit/order-edit';
-import { OrderAddComponent } from './features/orders/components/order-add/order-add';
+
 export const routes: Routes = [
 
   // Default Route
@@ -38,18 +37,35 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
-
       {
         path: 'orders',
-        component: OrderListComponent
+        loadComponent: () =>
+          import('./features/orders/components/order-list/order-list')
+            .then(m => m.OrderListComponent)
       },
       {
         path: 'orders/create',
-        component: OrderAddComponent
+        loadComponent: () =>
+          import('./features/orders/components/order-add/order-add')
+            .then(m => m.OrderAddComponent)
       },
       {
         path: 'orders/:id/edit',
-        component: OrderEditComponent
+        loadComponent: () =>
+          import('./features/orders/components/order-add/order-add')
+            .then(m => m.OrderAddComponent)
+      },
+      {
+        path: 'orders/view/:id',
+        loadComponent: () =>
+          import('./features/orders/components/order-view/order-view')
+            .then(m => m.OrderViewComponent)
+      },
+      {
+        path: 'orders/import',
+        loadComponent: () =>
+          import('./features/orders/components/order-import/order-import')
+            .then(m => m.OrderImportComponent)
       }
 
     ]

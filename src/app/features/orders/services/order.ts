@@ -4,16 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Order } from '../models/order.model';
+import { CreateOrderRequest } from '../models/CreateOrderRequest';
 
 @Service()
 export class OrderService {
 
-
   private http = inject(HttpClient);
-
-
-  private apiUrl =
-    `${environment.apiUrl}/orders`;
+  private apiUrl = `${environment.apiUrl}/orders`;
 
 
 
@@ -23,49 +20,67 @@ export class OrderService {
 
 
 
-  getOrderById(id: number): Observable<Order> {
+  getOrderById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
 
-    return this.http.get<Order>(
+  createOrder(payload: CreateOrderRequest): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/create`,
+      payload
+    );
+  }
+
+  updateOrder(id: number, payload: CreateOrderRequest): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/update/${id}`,
+      payload
+    );
+  }
+
+  deleteOrder(id: number): Observable<any> {
+    return this.http.delete<any>(
       `${this.apiUrl}/${id}`
     );
-
   }
 
+  updateStatus(id: number, status: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.apiUrl}/status/${id}`,
+      { status }
+    );
+  }
 
+  cancelOrder(order_number: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/cancel`,
+      {
+        order_number
+      }
+    );
+  }
 
-  createOrder(order: Order): Observable<Order> {
+  getTimeline(id: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/${id}/timeline`
+    );
+  }
 
-    return this.http.post<Order>(
-      this.apiUrl,
-      order
+  importOrders(
+    formData: FormData
+  ) {
+
+    return this.http.post<any>(
+      `${this.apiUrl}/import`,
+
+      formData
+
     );
 
   }
-
-
-
-  updateOrder(
-    id: number,
-    order: Order
-  ): Observable<Order> {
-
-
-    return this.http.put<Order>(
-      `${this.apiUrl}/${id}`,
-      order
-    );
-
-  }
-
-
-
-  deleteOrder(id: number) {
-
-    return this.http.delete(
-      `${this.apiUrl}/${id}`
-    );
-
-  }
-
-
 }
+
+
+
+
+

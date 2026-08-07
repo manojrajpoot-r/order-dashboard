@@ -1,0 +1,33 @@
+.page {
+    padding: 24px;
+}
+
+mat-card {
+    max-width: 900px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.col {
+    flex: 1;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+@media (max-width:768px){
+
+    .row{
+        flex-direction: column;
+    }
+
+}

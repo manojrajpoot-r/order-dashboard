@@ -5,15 +5,9 @@
     [disabled]="disabled || loading">
 
     @if (loading) {
-
-        <mat-spinner
-            diameter="20">
-        </mat-spinner>
-
+        Loading...
     } @else {
-
-        {{ text }}
-
+        {{ label }}
     }
 
 </button>

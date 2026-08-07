@@ -14,7 +14,7 @@ import { MATERIAL_MODULES } from '../material/material';
 })
 export class AppButtonComponent {
 
-  @Input() text = 'Submit';
+  @Input() label = 'Submit';
 
   @Input() type: 'button' | 'submit' = 'submit';
 

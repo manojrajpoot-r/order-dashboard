@@ -1,0 +1,120 @@
+@if(orderResource.isLoading()) {
+
+    <app-loader></app-loader>
+
+}
+
+@else {
+
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-card-title>
+
+            Order Details
+
+        </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <div class="row">
+
+            <div class="item">
+
+                <label>Order Number</label>
+
+                <span>{{ order()?.orderNumber }}</span>
+
+            </div>
+
+            <div class="item">
+
+                <label>Customer Name</label>
+
+                <span>{{ order()?.customerName }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="item">
+
+                <label>Product Code</label>
+
+                <span>{{ order()?.productCode }}</span>
+
+            </div>
+
+            <div class="item">
+
+                <label>Quantity</label>
+
+                <span>{{ order()?.quantity }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="item">
+
+                <label>Total Amount</label>
+
+                <span>
+
+                    ₹ {{ order()?.totalAmount }}
+
+                </span>
+
+            </div>
+
+            <div class="item">
+
+                <label>Status</label>
+
+                <app-status-badge
+                    [status]="order()?.status">
+                </app-status-badge>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="item full">
+
+                <label>Created At</label>
+
+                <span>
+
+                    {{ order()?.createdAt | date:'dd MMM yyyy hh:mm a' }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+
+        <app-button
+            type="button"
+            color="primary"
+            label="Back"
+            (click)="back()">
+        </app-button>
+
+    </mat-card-actions>
+
+</mat-card>
+
+}

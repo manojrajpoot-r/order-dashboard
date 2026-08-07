@@ -18,6 +18,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
+
+
+
 export const MATERIAL_MODULES = [
   MatButtonModule,
   MatCardModule,
@@ -37,6 +40,7 @@ export const MATERIAL_MODULES = [
   MatProgressBarModule,
   MatSelectModule,
   MatDividerModule
+
 ];
 @Component({
   selector: 'app-material',

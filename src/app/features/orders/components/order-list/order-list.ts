@@ -2,24 +2,28 @@ import { Component, inject, OnInit, signal, computed, effect, resource } from '@
 import { OrderService } from '../../../orders/services/order';
 import { Order } from '../../models/order.model';
 import { AppTableComponent } from '../../../../shared/components/app-table/app-table';
-import { AppLoaderComponent } from '../../../../shared/components/app-loader/app-loader';
 import { TableColumn } from '../../../../shared/models/table-column/table-column.model'
-import { TableAction } from '../../../../shared/models/table-column/table-action.model'
+import { TableAction } from '../../../../shared/models/table-action/table-action.model'
 import { MATERIAL_MODULES } from '../../../../shared/components/material/material';
-import { AppStatusBadgeComponent } from '../../../../shared/components/app-status-badge/app-status-badge'
 import { AppPaginationComponent } from "../../../../shared/components/app-pagination/app-pagination";
 import { SearchBox } from "../../../../shared/components/search-box/search-box";
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../../../shared/services/snackbar/snackbar.service';
+import {
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 @Component({
   selector: 'app-order-list',
   standalone: true,
   imports: [
     AppTableComponent,
-    AppLoaderComponent,
-    ...MATERIAL_MODULES,
-    AppStatusBadgeComponent,
+    RouterLink,
+    RouterLinkActive,
     SearchBox,
-    AppPaginationComponent
+    AppPaginationComponent,
+    ...MATERIAL_MODULES,
+
   ],
   templateUrl: './order-list.html'
 })
@@ -27,7 +31,7 @@ export class OrderListComponent implements OnInit {
 
   private orderService = inject(OrderService);
   private router = inject(Router);
-
+  private snackbar = inject(SnackbarService);
 
   page = signal(1);
   pageSize = signal(10);
@@ -35,38 +39,31 @@ export class OrderListComponent implements OnInit {
 
 
   columns = [
-
     {
       key: 'orderNumber',
       label: 'Order No'
     },
-
     {
       key: 'customerName',
       label: 'Customer'
     },
-
     {
       key: 'productCode',
       label: 'Product'
     },
-
     {
       key: 'quantity',
       label: 'Qty'
     },
-
     {
       key: 'totalAmount',
       label: 'Amount'
     },
-
     {
       key: 'status',
       label: 'Status',
-      type: 'status'
+      type: 'status-select'
     }
-
   ];
 
   actions = [
@@ -84,11 +81,26 @@ export class OrderListComponent implements OnInit {
     {
       name: 'delete',
       icon: 'delete'
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      type: 'status-select'
+    },
+    {
+      name: 'cancel',
+      icon: 'cancel'
     }
 
   ];
 
 
+  statusOptions = [
+    { label: 'Pending', value: 'PENDING' },
+    { label: 'Processing', value: 'PROCESSING' },
+    { label: 'Placed', value: 'PLACED' },
+    { label: 'Cancelled', value: 'CANCELLED' }
+  ];
 
   ngOnInit() {
 
@@ -112,6 +124,10 @@ export class OrderListComponent implements OnInit {
     switch (event.action) {
 
       case 'view':
+        this.router.navigate([
+          '/admin/orders/view',
+          event.row.id
+        ]);
 
         break;
 
@@ -124,7 +140,15 @@ export class OrderListComponent implements OnInit {
         break;
 
       case 'delete':
+        this.deleteOrder(event.row.id);
+        break;
 
+      case 'status':
+        this.changeStatus(event.row.id, event.row.status);
+        break;
+
+      case 'cancel':
+        this.cancelOrder(event.row.orderNumber);
         break;
     }
   }
@@ -182,7 +206,51 @@ export class OrderListComponent implements OnInit {
       return await this.orderService.getOrders();
     }
   });
+
+
   orders = computed<Order[]>(() =>
     this.ordersResource.value()?.data ?? []
   );
+
+
+
+
+  deleteOrder(id: number) {
+    if (!confirm('Delete this order?')) return;
+    this.orderService.deleteOrder(id).subscribe({
+      next: () => {
+        this.snackbar.success('Order Deleted Successfully');
+        this.ordersResource.reload();
+      }
+
+    });
+  }
+
+  changeStatus(id: number, status: string): void {
+    this.orderService.updateStatus(id, status).subscribe({
+      next: () => {
+        this.snackbar.success('Status Updated Successfully');
+        this.ordersResource.reload();
+      }
+    });
+
+  }
+
+
+  cancelOrder(orderNumber: string) {
+    if (!confirm('Cancel Order?')) {
+      return;
+    }
+
+    this.orderService
+      .cancelOrder(orderNumber)
+      .subscribe({
+        next: () => {
+          this.snackbar.success(
+            'Order Cancelled Successfully'
+          );
+          this.ordersResource.reload();
+        }
+      });
+  }
 }

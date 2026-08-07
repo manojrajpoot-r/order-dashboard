@@ -1,0 +1,29 @@
+mat-card{
+
+    width:600px;
+
+    margin:40px auto;
+
+}
+
+mat-card-content{
+
+    padding:25px 0;
+
+}
+
+input{
+
+    width:100%;
+
+}
+
+mat-card-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+}

@@ -1,0 +1,55 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-card-title>
+
+            Import Orders
+
+        </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <input
+
+            type="file"
+
+            accept=".xlsx,.xls,.csv"
+
+            (change)="onFileSelected($event)">
+
+    </mat-card-content>
+
+    <mat-card-actions>
+
+        <app-button
+
+            type="button"
+
+            color="primary"
+
+            label="Import"
+
+            [loading]="loading()"
+
+            (click)="importOrders()">
+
+        </app-button>
+
+        <app-button
+
+            type="button"
+
+            color="warn"
+
+            label="Cancel"
+
+            (click)="router.navigate(['/admin/orders'])">
+
+        </app-button>
+
+    </mat-card-actions>
+
+</mat-card>
