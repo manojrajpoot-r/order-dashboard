@@ -38,31 +38,31 @@ export class OrderListComponent implements OnInit {
   searchText = signal('');
 
 
-  columns = [
+  columns: TableColumn[] = [
     {
       key: 'orderNumber',
-      label: 'Order No'
+      title: 'Order No'
     },
     {
       key: 'customerName',
-      label: 'Customer'
+      title: 'Customer'
     },
     {
       key: 'productCode',
-      label: 'Product'
+      title: 'Product'
     },
     {
       key: 'quantity',
-      label: 'Qty'
+      title: 'Qty'
     },
     {
       key: 'totalAmount',
-      label: 'Amount'
+      title: 'Amount'
     },
     {
       key: 'status',
-      label: 'Status',
-      type: 'status-select'
+      title: 'Status',
+      type: 'status'
     }
   ];
 
@@ -71,6 +71,10 @@ export class OrderListComponent implements OnInit {
     {
       name: 'view',
       icon: 'visibility'
+    },
+    {
+      name: 'timeline',
+      icon: 'timeline'
     },
 
     {
@@ -130,7 +134,13 @@ export class OrderListComponent implements OnInit {
         ]);
 
         break;
-
+      case 'timeline':
+        this.router.navigate([
+          '/admin/orders',
+          event.row.id,
+          'timeline'
+        ]);
+        break;
       case 'edit':
         this.router.navigate([
           '/admin/orders',

@@ -66,6 +66,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/orders/components/order-import/order-import')
             .then(m => m.OrderImportComponent)
+      },
+      {
+        path: 'orders/:id/timeline',
+        loadComponent: () =>
+          import('./features/orders/components/saga-timeline/saga-timeline')
+            .then(m => m.SagaTimelineComponent)
       }
 
     ]

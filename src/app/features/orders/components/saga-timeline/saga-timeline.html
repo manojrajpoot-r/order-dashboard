@@ -1,0 +1,58 @@
+<div class="timeline-container">
+
+  <div class="page-header">
+
+    <button
+      mat-icon-button
+      routerLink="/admin/orders"
+      matTooltip="Back to Orders">
+
+      <mat-icon>arrow_back</mat-icon>
+
+    </button>
+
+    <h2>Order Timeline</h2>
+
+  </div>
+
+  @if (loading) {
+
+    <app-loader></app-loader>
+
+  }
+
+  @else if (!timeline.length) {
+
+    <div class="no-data">
+      No Timeline Found
+    </div>
+
+  }
+
+  @else {
+
+    <div class="timeline">
+
+      @for (item of timeline; track $index) {
+
+        <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-content">
+
+            <h3>
+              {{ item }}
+            </h3>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

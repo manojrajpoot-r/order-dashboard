@@ -47,7 +47,8 @@
     [placeholder]="'Search orders...'"
     (searchChange)="onSearch($event)">
   </app-search-box>
-<app-table
+
+  <app-table
     [data]="pagedOrders()"
     [columns]="columns"
     [actions]="actions"
@@ -55,13 +56,14 @@
     [statusOptions]="statusOptions"
     (statusChange)="changeStatus($event.id, $event.status)"
     (actionClick)="handleAction($event)">
-</app-table>
+  </app-table>
 
-  <app-pagination
-    [totalRecords]="totalRecords()"
-    [page]="page()"
-    [pageSize]="pageSize()"
-  ></app-pagination>
+<app-pagination
+  [totalRecords]="totalRecords()"
+  [page]="page()"
+  [pageSize]="pageSize()"
+  (pageChange)="onPageChange($event)">
+</app-pagination>
 
 
 </div>

@@ -18,44 +18,34 @@ import { OnChanges, SimpleChanges } from '@angular/core';
   templateUrl: './app-table.html'
 })
 export class AppTableComponent {
-
-
   @Input() data: any[] = [];
-
-
-
   @Input() columns: any[] = [];
-
   @Input() loading: boolean = false;
-
   @Input() noDataMessage: string = 'No Data Found';
-
-
   @Input() actions: any[] = [];
-
-
   @Output() actionClick = new EventEmitter<any>();
 
 
-
   get displayedColumns() {
-
     return [
-
       ...this.columns.map(
         column => column.key
       ),
-
       ...(this.actions.length ? ['actions'] : [])
-
     ];
 
   }
 
+  onStatusChange(id: number, status: string): void {
 
+    this.statusChange.emit({
+      id,
+      status
+    });
+
+  }
 
   handleAction(action: string, row: any) {
-
     this.actionClick.emit({
       action,
       row
@@ -73,3 +63,7 @@ export class AppTableComponent {
     status: string;
   }>();
 }
+
+
+
+
